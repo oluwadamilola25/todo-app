@@ -1,0 +1,84 @@
+html,
+body {
+  background-color: black;
+  height: 100%;
+  margin: 0;
+}
+
+.container {
+  height: 100vh;
+  background-color: black;
+}
+
+.row {
+  min-height: 100%;
+}
+
+.list-group {
+  margin-top: 100px;
+}
+
+.add-task {
+  background-color: #979797;
+}
+
+.description-title {
+  color: #afafaf;
+}
+
+.bottom-div {
+  background-color: #363636;
+}
+
+.flex-bottom {
+  margin-top: auto;
+}
+
+.image-size {
+  width: 48px;
+  height: 50px;
+}
+
+.hero-component {
+  display: flex;
+  flex-direction: column;
+}
+
+.no-show {
+  display: none;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media (min-width: 48rem) {
+  .plus-icon {
+    position: absolute;
+    left: 30%;
+    bottom: 15%;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media (min-width: 62rem) {
+  .plus-icon {
+    position: absolute;
+    left: 100%;
+    bottom: 15%;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media (min-width: 75rem) {
+  .plus-icon {
+    position: absolute;
+    left: 190%;
+    bottom: 15%;
+  }
+
+  .list-group-item {
+    margin-top: 400px;
+  }
+}
