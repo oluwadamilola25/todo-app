@@ -20,14 +20,19 @@ const htmlUpdateTask = document.getElementById("modalLabel");
 // Selecting the  Content on the landing page
 const heroComponent = document.querySelector(".hero-component");
 
+// Selecting the  toast display comment
+const toastDisplayComment = document.querySelector(".toast-body");
+
+// Event Listener functions to Disable task button
+taskInput.addEventListener("input", updateButtonState);
+descriptionInput.addEventListener("input", updateButtonState);
+
 // Disabled button function
-taskInput.addEventListener("input", function () {
-  if (taskInput.value.trim() === "") {
-    taskButton.disabled = true;
-  } else {
-    taskButton.disabled = false;
-  }
-});
+function updateButtonState() {
+  const isTaskInputEmpty = taskInput.value.trim() === "";
+  const isDescriptionInputEmpty = descriptionInput.value.trim() === "";
+  taskButton.disabled = isTaskInputEmpty && isDescriptionInputEmpty;
+}
 
 let currentTask = null;
 
@@ -52,7 +57,7 @@ function addTask(e) {
     };
 
     // Add the task to the array
-    tasks.push(taskObject);
+    tasks.unshift(taskObject);
 
     // Update the task list on the User Interface
     updateTaskList();
@@ -72,17 +77,15 @@ function addTask(e) {
 
     // Disable button
     taskButton.disabled = true;
+
+    // Display the Create Task comment
+    toastDisplayComment.innerHTML = "Task created successfully!!";
   }
 }
 
 // landing page content action
 function landingPageContent() {
-  console.log(taskList);
-  if (taskList.innerHTML !== "") {
-    heroComponent.classList.add("no-show");
-  } else {
-    heroComponent.classList.remove("no-show");
-  }
+  heroComponent.classList.toggle("no-show", taskList.innerHTML !== "");
 }
 
 // Error and Validation functin code
@@ -122,6 +125,9 @@ function editTask(index) {
 
   // Display Modal label title to Update Task
   htmlUpdateTask.innerHTML = "Update Task";
+
+  // Display the Update Task comment
+  toastDisplayComment.innerHTML = "Task updated successfully!!";
 
   // Show the former details of the task in the input fields.
   taskInput.value = tasks[index].title;
@@ -176,17 +182,16 @@ function updateTask(index, newTitle, newDescription) {
 // Update the task list on the User Interface function
 function updateTaskList() {
   // Clear the current task list
-  console.log(tasks);
   taskList.innerHTML = "";
 
   // Add tasks from the array to the list dynamically
   tasks.forEach((task, index) => {
     const listItem = document.createElement("li");
-    listItem.className = " list-group-item  mt-5";
-    listItem.id = `list-${index}`;
     listItem.innerHTML = `
-      <div class="d-flex justify-content-between">
-          <div class="d-flex gap-2">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex gap-2">
               <div>
                   <input type="checkbox" class="form-check-input" id="remember" />
                   <label for="remember" class="form-check-label"></label>
@@ -195,8 +200,8 @@ function updateTaskList() {
                   <p class="line-through">${task.title}</p>
                   <p class="line-through-two">${task.description}</p>
               </div>
-          </div>
-          <div class="d-flex gap-1">
+            </div>
+            <div class="d-flex gap-1">
               <div>
                   <button class="btn btn-info btn-sm float-end me-1" data-bs-toggle="modal"
                           data-bs-target="#exampleModal" onclick="editTask(${index})">Edit
@@ -206,7 +211,9 @@ function updateTaskList() {
                   <button type="button" class="btn btn-danger btn-sm float-end" data-bs-toggle="modal"
                   data-bs-target="#deleteModal" onclick="deleteModal(${index})">Delete</button>
               </div>
+            </div>
           </div>
+        </div>
       </div>
   `;
     taskList.appendChild(listItem);
