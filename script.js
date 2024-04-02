@@ -27,10 +27,13 @@ const toastDisplayComment = document.querySelector(".toast-body");
 taskInput.addEventListener("input", updateButtonState);
 descriptionInput.addEventListener("input", updateButtonState);
 
-// Disabled button function
+updateButtonState();
+
+// // Disabled button function
 function updateButtonState() {
   const isTaskInputEmpty = taskInput.value.trim() === "";
   const isDescriptionInputEmpty = descriptionInput.value.trim() === "";
+  console.log("hello");
   taskButton.disabled = isTaskInputEmpty && isDescriptionInputEmpty;
 }
 
@@ -49,7 +52,7 @@ function addTask(e) {
   let taskValue = taskInput.value.trim();
   let descriptionValue = descriptionInput.value.trim();
 
-  if (taskValue !== "") {
+  if (taskValue !== "" || descriptionValue !== "") {
     // Create task object
     const taskObject = {
       title: taskValue,
@@ -65,9 +68,6 @@ function addTask(e) {
     // landing page content action
     landingPageContent();
 
-    // Show task list update
-    toast();
-
     // Clear the input field
     taskInput.value = "";
     descriptionInput.value = "";
@@ -76,7 +76,7 @@ function addTask(e) {
     closeModal(taskButton);
 
     // Disable button
-    taskButton.disabled = true;
+    updateButtonState();
 
     // Display the Create Task comment
     toastDisplayComment.innerHTML = "Task created successfully!!";
@@ -121,8 +121,6 @@ function toast() {
 
 // Edit task function
 function editTask(index) {
-  console.log(index);
-
   // Display Modal label title to Update Task
   htmlUpdateTask.innerHTML = "Update Task";
 
@@ -157,7 +155,7 @@ function editTask(index) {
     closeModal(taskButton);
 
     // Disable button
-    taskButton.disabled = true;
+    updateButtonState();
   }
 }
 
@@ -232,6 +230,9 @@ function updateTaskList() {
       }
     });
   });
+
+  // Show task list update
+  toast();
 }
 
 // Display delete modal function
