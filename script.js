@@ -34,7 +34,7 @@ function updateButtonState() {
   const isTaskInputEmpty = taskInput.value.trim() === "";
   const isDescriptionInputEmpty = descriptionInput.value.trim() === "";
   console.log("hello");
-  taskButton.disabled = isTaskInputEmpty && isDescriptionInputEmpty;
+  taskButton.disabled = isTaskInputEmpty || isDescriptionInputEmpty;
 }
 
 let currentTask = null;
