@@ -14,6 +14,10 @@ body {
   padding-bottom: 5.625rem;
 }
 
+p {
+  max-width: min(40vw, 700px);
+}
+
 .add-task {
   background-color: #979797;
 }
@@ -46,6 +50,18 @@ body {
 
 .completed {
   text-decoration: line-through;
+}
+
+.title-font-weight {
+  font-weight: 600;
+}
+
+/* CSS for task content */
+.task-content {
+  max-width: 90%; /* Set maximum width to prevent overflow */
+  overflow: hidden; /* Hide overflowing content */
+  text-overflow: ellipsis; /* Show ellipsis (...) for truncated text */
+  white-space: nowrap; /* Prevent text from wrapping */
 }
 
 /* Medium devices (landscape tablets, 768px and up) */

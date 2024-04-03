@@ -23,6 +23,9 @@ const heroComponent = document.querySelector(".hero-component");
 // Selecting the  toast display comment
 const toastDisplayComment = document.querySelector(".toast-body");
 
+// Selecting the  toast display comment
+const taskInputFont = document.querySelector(".form-control");
+
 // Event Listener functions to Disable task button
 taskInput.addEventListener("input", updateButtonState);
 descriptionInput.addEventListener("input", updateButtonState);
@@ -33,7 +36,6 @@ updateButtonState();
 function updateButtonState() {
   const isTaskInputEmpty = taskInput.value.trim() === "";
   const isDescriptionInputEmpty = descriptionInput.value.trim() === "";
-  console.log("hello");
   taskButton.disabled = isTaskInputEmpty || isDescriptionInputEmpty;
 }
 
@@ -195,7 +197,7 @@ function updateTaskList() {
                   <label for="remember" class="form-check-label"></label>
               </div>
               <div>
-                  <p class="line-through">${task.title}</p>
+                  <p class="title-input line-through">${task.title}</p>
                   <p class="line-through-two">${task.description}</p>
               </div>
             </div>
@@ -233,6 +235,9 @@ function updateTaskList() {
 
   // Show task list update
   toast();
+
+  // Bolding the task-title
+  taskInputFont.classList.add("title-font-weight");
 }
 
 // Display delete modal function
