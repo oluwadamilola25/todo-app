@@ -26,23 +26,18 @@ const toastDisplayComment = document.querySelector(".toast-body");
 // Selecting the  toast display comment
 const taskInputFont = document.querySelector(".form-control");
 
-// Event Listener functions to Disable task button
-taskInput.addEventListener("input", updateButtonState);
-descriptionInput.addEventListener("input", updateButtonState);
-
 updateButtonState();
 
-// // Disabled button function
+// Disabled button function
 function updateButtonState() {
   const isTaskInputEmpty = taskInput.value.trim() === "";
   const isDescriptionInputEmpty = descriptionInput.value.trim() === "";
   taskButton.disabled = isTaskInputEmpty || isDescriptionInputEmpty;
 }
 
-let currentTask = null;
-
-// Calling the Create new task function
-taskButton.addEventListener("click", addTask);
+// Event Listener functions to Disable task button
+taskInput.addEventListener("input", updateButtonState);
+descriptionInput.addEventListener("input", updateButtonState);
 
 // Task list array
 let tasks = [];
@@ -85,6 +80,9 @@ function addTask(e) {
   }
 }
 
+// Calling the Create new task function
+taskButton.addEventListener("click", addTask);
+
 // landing page content action
 function landingPageContent() {
   heroComponent.classList.toggle("no-show", taskList.innerHTML !== "");
@@ -112,13 +110,24 @@ function closeModal(button) {
 // Task Update feedback message function
 function toast() {
   const toast = document.querySelector("#myToast");
-  if (taskButton) {
-    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toast);
+  toastBootstrap.show();
+}
 
-    taskButton.addEventListener("click", () => {
-      toastBootstrap.show();
-    });
-  }
+// Update edited task function
+function updateTask(index, newTitle, newDescription) {
+  //Object to re-assign the new task details into the selected task index
+  tasks[index] = {
+    title: newTitle,
+    description: newDescription,
+  };
+
+  // Update the task list on the User Interface
+  updateTaskList();
+
+  // Clear the input field
+  taskInput.value = "";
+  descriptionInput.value = "";
 }
 
 // Edit task function
@@ -135,9 +144,6 @@ function editTask(index) {
 
   // remove add task functionality from "save changes" button.
   taskButton.removeEventListener("click", addTask);
-
-  // add update task functionality to the button.
-  taskButton.addEventListener("click", triggerTaskUpdate);
 
   // Single call function that updates a task.
   function triggerTaskUpdate() {
@@ -159,24 +165,9 @@ function editTask(index) {
     // Disable button
     updateButtonState();
   }
-}
 
-function updateTask(index, newTitle, newDescription) {
-  //Object to re-assign the new task details into the selected task index
-  tasks[index] = {
-    title: newTitle,
-    description: newDescription,
-  };
-
-  // Update the task list on the User Interface
-  updateTaskList();
-
-  // Indictate successful update
-  toast();
-
-  // Clear the input field
-  taskInput.value = "";
-  descriptionInput.value = "";
+  // add update task functionality to the button.
+  taskButton.addEventListener("click", triggerTaskUpdate);
 }
 
 // Update the task list on the User Interface function
@@ -197,7 +188,7 @@ function updateTaskList() {
                   <label for="remember" class="form-check-label"></label>
               </div>
               <div>
-                  <p class="title-input line-through">${task.title}</p>
+                  <p class="line-through">${task.title}</p>
                   <p class="line-through-two">${task.description}</p>
               </div>
             </div>
@@ -235,10 +226,9 @@ function updateTaskList() {
 
   // Show task list update
   toast();
-
-  // Bolding the task-title
-  taskInputFont.classList.add("title-font-weight");
 }
+
+let currentTask = null;
 
 // Display delete modal function
 function deleteModal(index) {
@@ -251,6 +241,9 @@ deleteModalAction.addEventListener("click", function () {
 
   // Perform deletion action here
   tasks.splice(currentTaskAsNumber, 1);
+
+  // Display the Create Task comment
+  toastDisplayComment.innerHTML = "Task deleted successfully!!";
 
   // Update the task list on the User Interface
   updateTaskList();
