@@ -26,14 +26,14 @@ const toastDisplayComment = document.querySelector(".toast-body");
 // Selecting the  toast display comment
 const taskInputFont = document.querySelector(".form-control");
 
-updateButtonState();
-
 // Disabled button function
 function updateButtonState() {
   const isTaskInputEmpty = taskInput.value.trim() === "";
   const isDescriptionInputEmpty = descriptionInput.value.trim() === "";
   taskButton.disabled = isTaskInputEmpty || isDescriptionInputEmpty;
 }
+
+updateButtonState();
 
 // Event Listener functions to Disable task button
 taskInput.addEventListener("input", updateButtonState);
