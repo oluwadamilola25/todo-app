@@ -16,6 +16,7 @@ body {
 
 p {
   max-width: min(40vw, 700px);
+  text-wrap: balance;
 }
 
 .add-task {
