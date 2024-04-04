@@ -5,17 +5,16 @@ body {
 }
 
 .container {
-  height: 100vh;
   padding-top: 3.625rem;
 }
 
 .row {
   min-height: 100%;
-  padding-bottom: 5.625rem;
+  padding-bottom: 6.625rem;
 }
 
 p {
-  max-width: min(40vw, 700px);
+  max-width: min(40vw, 43.75rem);
   text-wrap: balance;
 }
 
