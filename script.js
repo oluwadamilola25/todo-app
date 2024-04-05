@@ -26,6 +26,23 @@ const toastDisplayComment = document.querySelector(".toast-body");
 // Selecting the  toast display comment
 const taskInputFont = document.querySelector(".form-control");
 
+// Load tasks from local storage when the page loads
+window.addEventListener("load", () => {
+  const storedTasks = JSON.parse(localStorage.getItem("tasks"));
+  if (storedTasks) {
+    tasks = storedTasks;
+
+    // Update the task list on the User Interface
+    updateTaskList();
+
+    // landing page content action
+    landingPageContent();
+
+    // Display the Create Task comment
+    toastDisplayComment.innerHTML = "Page refreshed successfully";
+  }
+});
+
 // Disabled button function
 function updateButtonState() {
   const isTaskInputEmpty = taskInput.value.trim() === "";
@@ -78,6 +95,9 @@ function addTask(e) {
     // Display the Create Task comment
     toastDisplayComment.innerHTML = "Task created successfully!!";
   }
+
+  // Save tasks to local storage
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 // Calling the Create new task function
@@ -128,6 +148,9 @@ function updateTask(index, newTitle, newDescription) {
   // Clear the input field
   taskInput.value = "";
   descriptionInput.value = "";
+
+  // Save tasks to local storage
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 // Edit task function
@@ -179,7 +202,7 @@ function updateTaskList() {
   tasks.forEach((task, index) => {
     const listItem = document.createElement("li");
     listItem.innerHTML = `
-      <div class="card mb-3">
+      <div class="card mb-3 bg-warning">
         <div class="card-body">
           <div class="d-flex flex-column justify-content-between">
             <div class="d-flex gap-2">
@@ -194,7 +217,7 @@ function updateTaskList() {
             </div>
             <div class="d-flex gap-1 justify-content-end">
               <div>
-                  <button class="btn btn-info btn-sm me-2" data-bs-toggle="modal"
+                  <button class="btn btn-primary btn-sm me-2" data-bs-toggle="modal"
                           data-bs-target="#exampleModal" onclick="editTask(${index})">Edit
                   </button>
               </div>
@@ -226,6 +249,9 @@ function updateTaskList() {
 
   // Show task list update
   toast();
+
+  // Save tasks to local storage
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
 let currentTask = null;
@@ -254,6 +280,9 @@ deleteModalAction.addEventListener("click", function () {
 
   // landing page content action
   landingPageContent();
+
+  // Save tasks to local storage
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 });
 
 // Selecting the cancel modal button

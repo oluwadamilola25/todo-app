@@ -42,6 +42,8 @@ p {
 .hero-component {
   display: flex;
   flex-direction: column;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .no-show {
