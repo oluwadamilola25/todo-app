@@ -14,7 +14,7 @@ body {
 }
 
 p {
-  max-width: min(40vw, 43.75rem);
+  max-width: min(70vw, 43.75rem);
   text-wrap: balance;
 }
 
@@ -52,8 +52,12 @@ p {
   text-decoration: line-through;
 }
 
-.title-font-weight {
-  font-weight: 600;
+.title-input {
+  font-weight: 700; /* or any other desired font weight */
+}
+
+.text-font {
+  font-weight: 300; /* or any other desired font weight */
 }
 
 /* CSS for task content */

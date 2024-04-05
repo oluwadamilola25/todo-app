@@ -181,25 +181,25 @@ function updateTaskList() {
     listItem.innerHTML = `
       <div class="card mb-3">
         <div class="card-body">
-          <div class="d-flex justify-content-between">
+          <div class="d-flex flex-column justify-content-between">
             <div class="d-flex gap-2">
               <div>
                   <input type="checkbox" class="form-check-input" id="remember" />
                   <label for="remember" class="form-check-label"></label>
               </div>
               <div>
-                  <p class="line-through">${task.title}</p>
-                  <p class="line-through-two">${task.description}</p>
+                  <p class="title-input line-through">${task.title}</p>
+                  <p class="text-font line-through-two">${task.description}</p>
               </div>
             </div>
-            <div class="d-flex gap-1">
+            <div class="d-flex gap-1 justify-content-end">
               <div>
-                  <button class="btn btn-info btn-sm float-end me-1" data-bs-toggle="modal"
+                  <button class="btn btn-info btn-sm me-2" data-bs-toggle="modal"
                           data-bs-target="#exampleModal" onclick="editTask(${index})">Edit
                   </button>
               </div>
               <div class="todo-item">
-                  <button type="button" class="btn btn-danger btn-sm float-end" data-bs-toggle="modal"
+                  <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
                   data-bs-target="#deleteModal" onclick="deleteModal(${index})">Delete</button>
               </div>
             </div>
