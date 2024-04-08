@@ -26,6 +26,9 @@ const toastDisplayComment = document.querySelector(".toast-body");
 // Selecting the  toast display comment
 const taskInputFont = document.querySelector(".form-control");
 
+// Selecting the  state of the check box
+const checkBoxState = document.querySelector(".task-state");
+
 // Load tasks from local storage when the page loads
 window.addEventListener("load", () => {
   const storedTasks = JSON.parse(localStorage.getItem("tasks"));
@@ -140,6 +143,7 @@ function updateTask(index, newTitle, newDescription) {
   tasks[index] = {
     title: newTitle,
     description: newDescription,
+    completed: null,
   };
 
   // Update the task list on the User Interface
@@ -207,12 +211,16 @@ function updateTaskList() {
           <div class="d-flex flex-column justify-content-between">
             <div class="d-flex gap-2">
               <div>
-                  <input type="checkbox" class="form-check-input" id="remember" />
+                  <input type="checkbox" class="form-check-input task-state" id="remember" />
                   <label for="remember" class="form-check-label"></label>
               </div>
               <div>
-                  <p class="title-input line-through">${task.title}</p>
-                  <p class="text-font line-through-two">${task.description}</p>
+                  <p class="title-input line-through ${
+                    task.completed ? "line-through completed" : ""
+                  }">${task.title}</p>
+                  <p class="text-font line-through-two ${
+                    task.completed ? "line-through-two completed" : ""
+                  }">${task.description}</p>
               </div>
             </div>
             <div class="d-flex gap-1 justify-content-end">
@@ -240,9 +248,15 @@ function updateTaskList() {
       if (this.checked) {
         listGroupItem.classList.add("completed");
         listGroupItem2.classList.add("completed");
+        tasks[index].completed = true;
+        // Save tasks to local storage
+        localStorage.setItem("tasks", JSON.stringify(tasks));
       } else {
         listGroupItem.classList.remove("completed");
         listGroupItem2.classList.remove("completed");
+        tasks[index].completed = false;
+        // Save tasks to local storage
+        localStorage.setItem("tasks", JSON.stringify(tasks));
       }
     });
   });
